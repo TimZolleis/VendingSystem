@@ -36,44 +36,35 @@ public class VendingSystemApp {
 
     private static void selection() {
         boolean exit = false;
-        int command;
+        String command;
+        inventory.create("Apples", 100);
+        inventory.create("Bananas", 200);
         System.out.println(inventory.display());
         while (!exit) {
             System.out.println("Enter command ( 1 create,  2 add,  3 sell,  4 save,  5 display,  6 quit");
-            command = Integer.parseInt(scanner.nextLine());
+            command = scanner.nextLine();
             switch (command) {
-                case 1:
+                case "create" -> {
                     System.out.println("Creating inventory:");
                     inventory.create(inventory.determineType(), inventory.determineQuantity());
-                    System.out.println("Do you want to quit? (Yes/No)");
-                    if (scanner.next().equalsIgnoreCase("Yes"))
-                        exit = true;
-                    break;
-                case 2:
+                }
+                case "add" -> {
                     System.out.println("Adding inventory:");
                     inventory.add(inventory.determineType(), inventory.determineQuantity());
-                    System.out.println("Do you want to quit? (Yes/No)");
-                    if (scanner.next().equalsIgnoreCase("Yes"))
-                        exit = true;
-                    break;
-                case 3:
+                }
+                case "sell" -> {
                     System.out.println("Selling inventory:");
                     inventory.sell(inventory.determineType(), inventory.determineQuantity());
-                    System.out.println("Do you want to quit? (Yes/No)");
-                    if (scanner.next().equalsIgnoreCase("Yes"))
-                        exit = true;
-                    break;
-                case 4:
-                    System.out.println("Saving...");
-                    break;
-                case 5:
+                }
+                case "save" -> System.out.println("Saving...");
+                case "display" -> {
                     System.out.println("Displaying Inventory");
-                    inventory.display();
-                    break;
-                case 6:
+                    System.out.println(inventory.display());
+                }
+                case "quit" -> {
                     System.out.println("Bye!");
                     exit = true;
-                    break;
+                }
             }
         }
 

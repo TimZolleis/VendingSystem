@@ -2,22 +2,22 @@ import java.util.*;
 
 public class Inventory {
     private String type;
-    private double quantity;
-    final static HashMap<String, Double> inventories = new HashMap<>();
+    private int quantity;
+    final static HashMap<String, Integer> inventories = new HashMap<>();
 
     public Inventory() {
     }
 
-    public Inventory(String type, double quantity) {
+    public Inventory(String type, int quantity) {
         this.type = type;
         this.quantity = inventories.get(type);
     }
 
-    public double getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public HashMap<String, Double> display() {
+    public HashMap<String, Integer> display() {
         return inventories;
     }
 
@@ -25,7 +25,7 @@ public class Inventory {
         return type;
     }
 
-    public void create(String type, double quantity) {
+    public void create(String type, Integer quantity) {
         //check if inventory already contains given type
         if (inventories.containsKey(type))
             System.out.println("Already existent!");
@@ -35,7 +35,7 @@ public class Inventory {
         }
     }
 
-    public void add(String type, double addQuantity) {
+    public void add(String type, int addQuantity) {
         //check if given type exists
         if (!inventories.containsKey(type))
             System.out.println("Error! Non-existent");
@@ -49,12 +49,12 @@ public class Inventory {
         }
     }
 
-    public void sell(String type, double removeQuantity) {
+    public void sell(String type, int removeQuantity) {
         //check if exists
         if (inventories.containsKey(type)) {
-            //check if enough is there
-            if (inventories.get(type) > removeQuantity) {
-                //sell
+            System.out.println("Step 1 Success!");
+            if (inventories.get(type) >= removeQuantity) {
+                System.out.println("Step 2 success!");
                 inventories.put(type, inventories.get(type) - removeQuantity);
                 System.out.println(removeQuantity + " " + type + " sold successfully!");
                 if (getQuantity() < 2 && !type.endsWith("s")) //adding "s" to plural
@@ -62,7 +62,9 @@ public class Inventory {
                 else if (!type.endsWith("s"))
                     System.out.println("There are" + getQuantity() + "s " + type + " left!");
             }
+            else System.out.println("error! Not enough inventory! There are only " + getQuantity() + " " + type  + " left!");
         }
+        else System.out.println("error! non-existent");
     }
 
     public String determineType() {
@@ -71,10 +73,10 @@ public class Inventory {
         return scanner.nextLine();
     }
 
-    public double determineQuantity() {
+    public int determineQuantity() {
         Scanner scanner = VendingSystemApp.scanner;
         System.out.print("Quantity: ");
-        return scanner.nextDouble();
+        return Integer.parseInt(scanner.nextLine());
     }
 
     @Override
